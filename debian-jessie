@@ -58,9 +58,11 @@
         "scripts/sshd.sh",
         "scripts/networking.sh",
         "scripts/sudoers.sh",
-        "scripts/vagrant.sh",
         "scripts/vbaddguest.sh",
         "scripts/cleanup.sh"
+      ],
+      "environment_vars": [
+         "PACKERIOUSERNAME=vagrant"
       ],
       "only": ["virtualbox-iso"]
     }
