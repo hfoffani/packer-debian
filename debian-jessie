@@ -1,11 +1,15 @@
 {
     "variables": {
         "debian_version": "8.4.0",
-        "checksum": "bcbe10df027d9e2a5fbe3521039cd715"
+        "checksum": "bcbe10df027d9e2a5fbe3521039cd715",
+        "ssh_name": "vagrant",
+        "ssh_pass": "vagrant",
+        "hostname": "vmdeb"
     },
   "builders": [
     {
       "type": "virtualbox-iso",
+      "format": "ova",
       "boot_command": [
         "<esc><wait>",
         "install <wait>",
@@ -16,7 +20,7 @@
         "kbd-chooser/method=us <wait>",
         "keyboard-configuration/xkb-keymap=us <wait>",
         "netcfg/get_hostname={{ .Name }} <wait>",
-        "netcfg/get_domain=vagrantup.com <wait>",
+        "netcfg/get_domain= <wait>",
         "fb=false <wait>",
         "debconf/frontend=noninteractive <wait>",
         "console-setup/ask_detect=false <wait>",
@@ -24,21 +28,21 @@
         "<enter><wait>"
       ],
       "boot_wait": "10s",
-      "disk_size": 32768,
+      "disk_size": 8000,
       "guest_os_type": "Debian",
       "headless": true,
       "http_directory": "http",
       "iso_url": "http://cdimage.debian.org/cdimage/release/{{user `debian_version`}}/i386/iso-cd/debian-{{user `debian_version`}}-i386-netinst.iso",
       "iso_checksum": "{{user `checksum`}}",
       "iso_checksum_type": "md5",
-      "ssh_username": "vagrant",
-      "ssh_password": "vagrant",
+      "ssh_username": "{{user `ssh_name`}}",
+      "ssh_password": "{{user `ssh_pass`}}",
       "ssh_port": 22,
-      "ssh_wait_timeout": "10000s",
-      "shutdown_command": "echo 'vagrant'|sudo -S /sbin/shutdown -hP now",
+      "ssh_wait_timeout": "90m",
+      "shutdown_command": "echo {{user `ssh_pass`}}|sudo -S /sbin/shutdown -hP now",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "virtualbox_version_file": ".vbox_version",
-      "vm_name": "debian-{{user `debian_version`}}-i386",
+      "vm_name": "debian-{{user `hostname`}}-i386",
       "vboxmanage": [
         [ "modifyvm", "{{.Name}}", "--memory", "2048" ],
         [ "modifyvm", "{{.Name}}", "--cpus", "1" ]
