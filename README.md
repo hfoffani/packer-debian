@@ -24,4 +24,12 @@ packer build debian-jessie
 
 That's it :-)
 
-You can find the result on the vagrantcloud here: https://vagrantcloud.com/deimosfr/debian-wheezy
+
+Keyboard
+--------
+
+Keyboard for this distribution is EN-US. You can change it by:
+
+    sudo dpkg-reconfigure keyboard-configuration
+    sudo setupcon
+
